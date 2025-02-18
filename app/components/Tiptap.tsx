@@ -22,7 +22,11 @@ const Tiptap = () => {
     `,
   });
 
-  return <EditorContent editor={editor} />;
+  return (
+    <div>
+      <EditorContent editor={editor} />
+    </div>
+  );
 };
 
 export default Tiptap;

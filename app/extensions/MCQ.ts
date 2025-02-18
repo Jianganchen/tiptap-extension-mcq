@@ -2,8 +2,19 @@ import { Node, mergeAttributes } from "@tiptap/core";
 import { ReactNodeViewRenderer } from "@tiptap/react";
 import MCQComponent from "../components/MCQComponent";
 
+declare module "@tiptap/core" {
+  interface Commands<ReturnType> {
+    mcq: {
+      /**
+       * Toggle a multiple choice question node
+       */
+      toggleMCQ: () => ReturnType;
+    };
+  }
+}
+
 export default Node.create({
-  name: "reactComponent",
+  name: "mcq",
 
   group: "block",
 
@@ -37,5 +48,15 @@ export default Node.create({
 
   addNodeView() {
     return ReactNodeViewRenderer(MCQComponent);
+  },
+
+  addCommands() {
+    return {
+      toggleMCQ:
+        () =>
+        ({ commands }) => {
+          return commands.toggleNode("paragraph", this.name);
+        },
+    };
   },
 });

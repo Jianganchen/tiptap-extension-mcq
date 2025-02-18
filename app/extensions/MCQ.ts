@@ -15,8 +15,8 @@ export default Node.create({
         default: {
           question: "Enter your question...",
           choices: [
-            { id: 0, value: "Option 1" },
-            { id: 1, value: "Option 2" },
+            { id: 0, value: "Option 1", selected: false },
+            { id: 1, value: "Option 2", selected: false },
           ],
         },
       },

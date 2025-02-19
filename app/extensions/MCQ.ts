@@ -31,6 +31,9 @@ export default Node.create({
           ],
         },
       },
+      isEditable: {
+        default: true,
+      },
     };
   },
 

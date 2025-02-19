@@ -1,5 +1,5 @@
 import { NodeViewContent, NodeViewWrapper, NodeViewProps } from "@tiptap/react";
-import { Key } from "react";
+import { useEffect } from "react";
 
 export interface Choice {
   id: number;
@@ -8,7 +8,8 @@ export interface Choice {
 }
 
 const MCQComponent = (props: NodeViewProps) => {
-  const { MultipleChoices } = props.node.attrs;
+  const { MultipleChoices, isEditable } = props.node.attrs;
+  const { editor } = props;
   const choices = MultipleChoices.choices || [];
 
   const addChoice = () => {
@@ -40,8 +41,9 @@ const MCQComponent = (props: NodeViewProps) => {
   };
 
   const toggleCorrect = (index: number) => {
-    const updatedChoices = [...choices];
-    updatedChoices[index].correct = !updatedChoices[index].correct;
+    const updatedChoices = choices.map((choice: Choice) =>
+      choice.id === index ? { ...choice, selected: !choice.selected } : choice
+    );
 
     props.updateAttributes({
       MultipleChoices: {
@@ -100,12 +102,14 @@ const MCQComponent = (props: NodeViewProps) => {
       ))}
 
       <div>
-        <button
-          className="bg-blue-500 text-white px-2 py-1 mt-2"
-          onClick={addChoice}
-        >
-          Add Choice
-        </button>
+        {isEditable ? (
+          <button
+            className="bg-blue-500 text-white px-2 py-1 mt-2"
+            onClick={addChoice}
+          >
+            Add Choice
+          </button>
+        ) : null}
       </div>
     </NodeViewWrapper>
   );

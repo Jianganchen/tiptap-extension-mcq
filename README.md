@@ -26,6 +26,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
   - Edit the question
 - In read-only mode, you can:
   - Choose an answer and submit it
+  - Once Submitted answer, you can see the JSON of your answer in browser console
 - Move the caret to some regular text and click the "CheckList" button to toggle between regular text and a mutiple-choice question
 
 ## Known issues

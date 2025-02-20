@@ -23,8 +23,10 @@ export default Node.create({
   addAttributes() {
     return {
       MultipleChoices: {
+        // This is a sample question as a placeholder
         default: {
-          question: "Enter your question...",
+          question:
+            "Which of the following is the primary cause of climate change?",
           choices: [
             { id: 0, value: "Deforestation", selected: false },
             { id: 1, value: "Burning fossil fuels", selected: false },

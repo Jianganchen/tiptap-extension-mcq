@@ -26,8 +26,14 @@ export default Node.create({
         default: {
           question: "Enter your question...",
           choices: [
-            { id: 0, value: "Option 1", selected: false },
-            { id: 1, value: "Option 2", selected: false },
+            { id: 0, value: "Deforestation", selected: false },
+            { id: 1, value: "Burning fossil fuels", selected: false },
+            { id: 2, value: "Volcanic eruptions", selected: false },
+            {
+              id: 3,
+              value: "Earth’s natural temperature cycles",
+              selected: false,
+            },
           ],
         },
       },

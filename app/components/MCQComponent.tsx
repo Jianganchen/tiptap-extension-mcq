@@ -68,7 +68,7 @@ const MCQComponent = (props: NodeViewProps) => {
     <NodeViewWrapper className="react-component ">
       {/* <label contentEditable={false}>React Component</label> */}
 
-      <NodeViewContent className="content is-editable mb-3 text-lg font-semibold text-textColor" />
+      <NodeViewContent className="content is-editable mb-3" />
 
       {choices.map((choice: Choice, index: number) => (
         <div key={choice.id} className="flex items-center gap-2 mt-2">

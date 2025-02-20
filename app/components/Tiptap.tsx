@@ -15,11 +15,12 @@ const Tiptap = () => {
     immediatelyRender: false,
     content: `
     <p>Climate change is one of the most pressing challenges of our time. It refers to long-term shifts in temperature and weather patterns, primarily caused by human activities such as burning fossil fuels. These activities increase the concentration of greenhouse gases in the atmosphere, leading to global warming.</p>
-
+    <br />
     <react-component>
-      <p>Suppose this is the MCQ. This is editable. </p>
+      <p>Which of the following is the primary cause of climate change?</p>
+      
     </react-component>
-
+    <br />
     <p>The effects of climate change are widespread, including rising sea levels, more extreme weather events, and disruptions to ecosystems. Scientists emphasize the importance of reducing carbon emissions and adopting sustainable practices to mitigate its impact.</p>
     `,
 
@@ -65,10 +66,8 @@ const Tiptap = () => {
 
       <EditorContent
         editor={editor}
-        className="border border-secondary p-4 rounded-md shadow-sm focus:outline-none focus:ring-0"
+        className="border border-secondary p-4 rounded-md shadow-sm focus:outline-none focus:ring-0 text-xl font-semibold leading-10"
       />
-
-      {editor.isEditable ? <h1>Is Editable!</h1> : <h1>Is not Editable!</h1>}
     </div>
   );
 };

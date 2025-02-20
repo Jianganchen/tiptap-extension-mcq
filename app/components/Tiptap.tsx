@@ -6,12 +6,13 @@ import { useState } from "react";
 import { Edit, Eye, ListChecks } from "lucide-react";
 
 import MCQ from "@/app/extensions/MCQ";
+import TextSummary from "../extensions/TextSummary";
 
 const Tiptap = () => {
   const [isEditable, setIsEditable] = useState(true);
 
   const editor = useEditor({
-    extensions: [StarterKit, MCQ],
+    extensions: [StarterKit, MCQ, TextSummary],
     immediatelyRender: false,
     content: `
     <p>Climate change is one of the most pressing challenges of our time. It refers to long-term shifts in temperature and weather patterns, primarily caused by human activities such as burning fossil fuels. These activities increase the concentration of greenhouse gases in the atmosphere, leading to global warming.</p>
@@ -22,6 +23,11 @@ const Tiptap = () => {
     </react-component>
     <br />
     <p>The effects of climate change are widespread, including rising sea levels, more extreme weather events, and disruptions to ecosystems. Scientists emphasize the importance of reducing carbon emissions and adopting sustainable practices to mitigate its impact.</p>
+    <br />
+
+    <summary-component>
+      <p>The increase in greenhouse gases traps heat in the Earth's atmosphere, leading to rising global temperatures, melting ice caps, and extreme weather events. Scientists emphasize the need for immediate action, including reducing carbon emissions, adopting renewable energy sources, and promoting sustainable practices. Without intervention, climate change could have severe consequences for ecosystems and human societies worldwide.</p>
+    </summary-component>
     `,
 
     editable: isEditable,

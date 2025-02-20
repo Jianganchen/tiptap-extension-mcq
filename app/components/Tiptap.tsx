@@ -27,21 +27,28 @@ const Tiptap = () => {
   }
 
   return (
-    <div>
+    <div className="max-w-3xl mx-auto p-6 bg-background text-textColor shadow-lg rounded-lg">
       <button
         onClick={() => {
           setIsEditable((prev) => !prev);
           editor.commands.updateAttributes("mcq", { isEditable: !isEditable });
         }}
-        className="bg-gray-700 text-white px-3 py-1 rounded"
+        className="mb-4 px-4 py-2 text-background bg-buttonColor rounded-md transition-all hover:bg-yellow-600"
       >
         {isEditable ? "Switch to Read-Only" : "Switch to Edit Mode"}
       </button>
-      <EditorContent editor={editor} />
+      <EditorContent
+        editor={editor}
+        className="border border-secondary p-4 rounded-md shadow-sm focus:outline-none focus:ring-0"
+      />
 
       <button
         onClick={() => editor?.chain().focus().toggleMCQ().run()}
-        className={editor.isActive("mcq") ? "is-active" : ""}
+        className={`mt-4 px-4 py-2 rounded-md text-background transition-all ${
+          editor.isActive("mcq")
+            ? "bg-buttonColor hover:bg-yellow-600"
+            : "bg-secondary"
+        }`}
       >
         Toggle MCQ
       </button>

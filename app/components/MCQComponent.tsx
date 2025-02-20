@@ -9,7 +9,6 @@ export interface Choice {
 
 const MCQComponent = (props: NodeViewProps) => {
   const { MultipleChoices, isEditable } = props.node.attrs;
-  const { editor } = props;
   const choices = MultipleChoices.choices || [];
 
   const addChoice = () => {
@@ -66,45 +65,54 @@ const MCQComponent = (props: NodeViewProps) => {
   };
 
   return (
-    <NodeViewWrapper className="react-component">
+    <NodeViewWrapper className="react-component ">
       {/* <label contentEditable={false}>React Component</label> */}
 
-      <NodeViewContent className="content is-editable" />
+      <NodeViewContent className="content is-editable mb-3 text-lg font-semibold text-textColor" />
 
       {choices.map((choice: Choice, index: number) => (
         <div key={choice.id} className="flex items-center gap-2 mt-2">
           {/* Choice CheckBox */}
-          <input
-            key={"checkboxKey" + choice.id}
-            type="checkbox"
-            checked={choice.selected}
-            onChange={() => toggleCorrect(index)}
-          />
+          {!isEditable && (
+            <input
+              key={"checkboxKey" + choice.id}
+              type="checkbox"
+              checked={choice.selected}
+              onChange={() => toggleCorrect(index)}
+              className="w-5 h-5 accent-buttonColor cursor-pointer"
+            />
+          )}
 
           {/* Choice Input Field */}
-          <input
-            key={"inputKey" + choice.id}
-            type="text"
-            value={choice.value}
-            onChange={(e) => handleChoiceChange(index, e.target.value)}
-            className="border p-2 w-full"
-          />
+          {isEditable ? (
+            <input
+              key={"inputKey" + choice.id}
+              type="text"
+              value={choice.value}
+              onChange={(e) => handleChoiceChange(index, e.target.value)}
+              className="w-full p-2 border border-textColor rounded-md bg-background text-textColor focus:outline-none focus:ring-2 focus:ring-buttonColor"
+            />
+          ) : (
+            <label>{choice.value}</label>
+          )}
 
           {/* Choice Delete Button */}
-          <button
-            key={"buttonKey" + choice.id}
-            onClick={() => deleteChoice(index)}
-            className="bg-red-500 text-white px-2 py-1"
-          >
-            Delete Choice
-          </button>
+          {isEditable && (
+            <button
+              key={"buttonKey" + choice.id}
+              onClick={() => deleteChoice(index)}
+              className="px-3 py-1 rounded-md text-background transition-all bg-red-500 hover:bg-red-600"
+            >
+              Delete Choice
+            </button>
+          )}
         </div>
       ))}
 
       <div>
         {isEditable ? (
           <button
-            className="bg-blue-500 text-white px-2 py-1 mt-2"
+            className="mt-3 px-4 py-2 text-background bg-buttonColor rounded-md hover:bg-yellow-600 transition-all"
             onClick={addChoice}
           >
             Add Choice

@@ -3,6 +3,7 @@
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { useState } from "react";
+import { Edit, Eye, ListChecks } from "lucide-react";
 
 import MCQ from "@/app/extensions/MCQ";
 
@@ -28,30 +29,38 @@ const Tiptap = () => {
 
   return (
     <div className="max-w-3xl mx-auto p-6 bg-background text-textColor shadow-lg rounded-lg">
-      <button
-        onClick={() => {
-          setIsEditable((prev) => !prev);
-          editor.commands.updateAttributes("mcq", { isEditable: !isEditable });
-        }}
-        className="mb-4 px-4 py-2 text-background bg-buttonColor rounded-md transition-all hover:bg-yellow-600"
-      >
-        {isEditable ? "Switch to Read-Only" : "Switch to Edit Mode"}
-      </button>
+      <div className="flex items-center gap-1 mb-4">
+        <button
+          onClick={() => {
+            setIsEditable((prev) => !prev);
+            editor.commands.updateAttributes("mcq", {
+              isEditable: !isEditable,
+            });
+          }}
+          className="flex items-center justify-center w-10 h-10 rounded-full transition-all text-buttonColor hover:text-yellow-500"
+        >
+          {isEditable ? (
+            <Eye className="w-6 h-6" />
+          ) : (
+            <Edit className="w-6 h-6" />
+          )}
+        </button>
+        <button
+          onClick={() => editor?.chain().focus().toggleMCQ().run()}
+          className={`flex items-center justify-center w-10 h-10 rounded-full transition-all ${
+            editor.isActive("mcq")
+              ? "text-buttonColor hover:text-yellow-500"
+              : "text-textColor hover:text-d1d0c5"
+          }`}
+        >
+          <ListChecks className="w-6 h-6" />
+        </button>
+      </div>
+
       <EditorContent
         editor={editor}
         className="border border-secondary p-4 rounded-md shadow-sm focus:outline-none focus:ring-0"
       />
-
-      <button
-        onClick={() => editor?.chain().focus().toggleMCQ().run()}
-        className={`mt-4 px-4 py-2 rounded-md text-background transition-all ${
-          editor.isActive("mcq")
-            ? "bg-buttonColor hover:bg-yellow-600"
-            : "bg-secondary"
-        }`}
-      >
-        Toggle MCQ
-      </button>
 
       {editor.isEditable ? <h1>Is Editable!</h1> : <h1>Is not Editable!</h1>}
     </div>

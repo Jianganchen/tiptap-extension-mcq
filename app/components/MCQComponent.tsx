@@ -1,5 +1,5 @@
 import { NodeViewContent, NodeViewWrapper, NodeViewProps } from "@tiptap/react";
-import { useEffect } from "react";
+import { Trash2, Plus } from "lucide-react";
 
 export interface Choice {
   id: number;
@@ -101,9 +101,9 @@ const MCQComponent = (props: NodeViewProps) => {
             <button
               key={"buttonKey" + choice.id}
               onClick={() => deleteChoice(index)}
-              className="px-3 py-1 rounded-md text-background transition-all bg-red-500 hover:bg-red-600"
+              className="flex items-center justify-center w-10 h-10 rounded-full transition-all text-red-500 hover:text-red-600"
             >
-              Delete Choice
+              <Trash2 className="w-6 h-6" />
             </button>
           )}
         </div>
@@ -112,10 +112,10 @@ const MCQComponent = (props: NodeViewProps) => {
       <div>
         {isEditable ? (
           <button
-            className="mt-3 px-4 py-2 text-background bg-buttonColor rounded-md hover:bg-yellow-600 transition-all"
+            className="mt-3 flex items-center justify-center w-10 h-10 rounded-full transition-all text-buttonColor hover:text-yellow-500"
             onClick={addChoice}
           >
-            Add Choice
+            <Plus className="w-6 h-6" />
           </button>
         ) : null}
       </div>

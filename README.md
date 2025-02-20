@@ -28,8 +28,11 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
   - Choose an answer and submit it
   - Once Submitted answer, you can see the JSON of your answer in browser console
 - Move the caret to some regular text and click the "CheckList" button to toggle between regular text and a mutiple-choice question
+- Scroll down to the bottom and you can see a summarize button
+- You can see summarized text by clicking that button
 
 ## Known issues
 
 - Choices in MCQComponents are taking length as keys, which might cause two choices having the same keys.
 - Toggle edit mode and read-only mode button isn't toggling the mode for the entire page.
+- The text summarization model used here is a free-tier model so the summarization is pretty bad.

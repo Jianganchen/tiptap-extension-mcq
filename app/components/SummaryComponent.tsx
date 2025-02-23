@@ -1,3 +1,5 @@
+"use client";
+
 import { NodeViewWrapper, NodeViewContent, NodeViewProps } from "@tiptap/react";
 import { useState } from "react";
 import { fetchSummary } from "../utils/fetchSummary";

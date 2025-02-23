@@ -2,7 +2,7 @@
 
 import { useEditor, EditorContent, Editor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Edit, Eye, ListChecks } from "lucide-react";
 
 export type EditorHeaderProps = {
@@ -14,6 +14,16 @@ const Tiptap = ({ editor, isEditable }: EditorHeaderProps) => {
   if (!editor) {
     return null;
   }
+
+  useEffect(() => {
+    editor
+      .chain()
+      .focus("all")
+      .updateAttributes("mcq", {
+        isEditable: isEditable,
+      })
+      .run();
+  }, [isEditable]);
 
   const toggleEditable = () => {
     editor.setOptions({ editable: !editor.isEditable });

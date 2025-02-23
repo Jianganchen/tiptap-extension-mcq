@@ -23,7 +23,7 @@ export const BlockEditor = () => {
     <div className="flex h-full" ref={menuContainerRef}>
       <div className="relative flex flex-col flex-1 h-full overflow-hidden">
         <EditorHeader editor={editor} />
-        <Tiptap editor={editor} />
+        <Tiptap editor={editor} isEditable={isEditable} />
       </div>
     </div>
   );

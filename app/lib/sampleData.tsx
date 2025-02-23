@@ -27,5 +27,25 @@ export const sampleData = {
         },
       ],
     },
+    {
+      type: "mcq",
+      attrs: {
+        MultipleChoices: {
+          question:
+            "Which of the following is the primary cause of climate change?",
+          choices: [
+            { id: 0, value: "Deforestation", selected: false },
+            { id: 1, value: "Burning fossil fuels", selected: false },
+            { id: 2, value: "Volcanic eruptions", selected: false },
+            {
+              id: 3,
+              value: "Earth’s natural temperature cycles",
+              selected: false,
+            },
+          ],
+        },
+        isEditable: true,
+      },
+    },
   ],
 };

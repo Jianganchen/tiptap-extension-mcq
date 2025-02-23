@@ -7,11 +7,10 @@ import { Edit, Eye, ListChecks } from "lucide-react";
 
 export type EditorHeaderProps = {
   editor: Editor;
+  isEditable: boolean;
 };
 
-const Tiptap = ({ editor }: EditorHeaderProps) => {
-  const [isEditable, setIsEditable] = useState(true);
-
+const Tiptap = ({ editor, isEditable }: EditorHeaderProps) => {
   if (!editor) {
     return null;
   }

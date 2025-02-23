@@ -4,6 +4,8 @@ import type { Editor, EditorOptions } from "@tiptap/core";
 import { sampleData } from "@/app/lib/sampleData";
 import StarterKit from "@tiptap/starter-kit";
 import { useEffect } from "react";
+import MCQ from "@/app/extensions/MCQ";
+import TextSummary from "@/app/extensions/TextSummary";
 
 declare global {
   interface Window {
@@ -25,7 +27,7 @@ export const useBlockEditor = ({
         ctx.editor.commands.focus("start", { scrollIntoView: true }); // Move cursor to the start
       }
     },
-    extensions: [StarterKit],
+    extensions: [StarterKit, MCQ, TextSummary],
     editorProps: {
       attributes: {
         autocomplete: "off",

@@ -1,3 +1,5 @@
+"use client";
+
 import { NodeViewContent, NodeViewWrapper, NodeViewProps } from "@tiptap/react";
 import { Trash2, Plus, CheckCircle } from "lucide-react";
 import { useState } from "react";

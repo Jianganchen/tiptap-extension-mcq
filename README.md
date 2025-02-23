@@ -10,7 +10,6 @@ To begin, clone the repository from GitHub, using the following command:
 
 ```
 git clone https://github.com/Jianganchen/tiptap-extension-mcq.git
-
 ```
 
 ### 2. Install the dependencies

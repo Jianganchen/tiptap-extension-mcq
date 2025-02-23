@@ -1,8 +1,29 @@
+# TipTap-Multiple-Choice-Question-extension
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app). This app implements a Multiple-choice question, built on top of [TipTap](https://github.com/ueberdosis/tiptap).
 
-## Getting Started
+## Installation & Usage
 
-First, run the development server:
+### 1. Clone the repository
+
+To begin, clone the repository from GitHub, using the following command:
+
+```
+git clone https://github.com/Jianganchen/tiptap-extension-mcq.git
+
+```
+
+### 2. Install the dependencies
+
+To install the dependencies, run this:
+
+```
+npm install
+```
+
+### 3. Launch the server
+
+run the development server:
 
 ```bash
 npm run dev
@@ -34,5 +55,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Known issues
 
 - Choices in MCQComponents are taking length as keys, which might cause two choices having the same keys.
-- Toggle edit mode and read-only mode button isn't toggling the mode for the entire page.
+- ~~Toggle edit mode and read-only mode button isn't toggling the mode for the entire page.~~
 - The text summarization model used here is a free-tier model so the summarization is pretty bad.
+
+## Logs
+
+- 02/23/2025 - Fixed bugs in toggle edit mode and read-only mode button.

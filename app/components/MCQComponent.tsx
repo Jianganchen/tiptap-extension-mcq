@@ -15,12 +15,14 @@ export interface Choice {
 const MCQComponent = (props: NodeViewProps) => {
   const { MultipleChoices, isEditable } = props.node.attrs;
   const choices = MultipleChoices.choices || [];
+  const question = MultipleChoices.question || "";
 
   const [submitted, setSubmitted] = useState(false);
 
   const addChoice = () => {
     props.updateAttributes({
       MultipleChoices: {
+        ...MultipleChoices,
         choices: [
           ...choices,
           {
@@ -66,7 +68,17 @@ const MCQComponent = (props: NodeViewProps) => {
 
     props.updateAttributes({
       MultipleChoices: {
+        ...MultipleChoices,
         choices: [...updatedChoices],
+      },
+    });
+  };
+
+  const handleQuestionChange = (value: string) => {
+    props.updateAttributes({
+      MultipleChoices: {
+        ...MultipleChoices,
+        question: value,
       },
     });
   };
@@ -92,12 +104,21 @@ const MCQComponent = (props: NodeViewProps) => {
   };
 
   return (
-    <NodeViewWrapper className="react-component ">
+    <NodeViewWrapper className="react-component">
       {/* <label contentEditable={false}>React Component</label> */}
 
-      <NodeViewContent className="content is-editable mb-3" />
-
       <Toaster />
+      <NodeViewContent className="content is-editable mb-3" />
+      {isEditable ? (
+        <input
+          type="text"
+          value={question}
+          onChange={(e) => handleQuestionChange(e.target.value)}
+          className="w-full p-2 border-textColor rounded-md bg-background text-textColor focus: outline-none"
+        />
+      ) : (
+        <label>{question}</label>
+      )}
 
       {choices.map((choice: Choice, index: number) => (
         <div key={choice.id} className="flex items-center gap-2 mt-2">

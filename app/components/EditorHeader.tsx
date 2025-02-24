@@ -13,6 +13,7 @@ import {
   Bot,
 } from "lucide-react";
 import { useCallback } from "react";
+import { fetchSummary } from "../utils/fetchSummary";
 
 import Button from "./ui/Button";
 
@@ -97,7 +98,15 @@ export const EditorHeader = ({ editor }: EditorHeaderProps) => {
               />
 
               {/* AI summarize Button */}
-              <Button icon={Bot} tooltip="AI summarize" />
+              <Button
+                icon={Bot}
+                tooltip="AI summarize"
+                onClick={async () => {
+                  const userInput = editor.getText();
+                  const summary = await fetchSummary(userInput);
+                  editor.chain().focus().AISummarize(summary).run();
+                }}
+              />
             </div>
           )}
         </div>

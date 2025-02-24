@@ -158,13 +158,6 @@ const MCQComponent = (props: NodeViewProps) => {
                 value={choice.id.toString()}
                 id={index.toString()}
               />
-              // <input
-              //   key={"checkboxKey" + choice.id}
-              //   type="checkbox"
-              //   checked={choice.selected}
-              //   onChange={() => toggleSelect(index)}
-              //   className="w-5 h-5 accent-buttonColor cursor-pointer"
-              // />
             )}
 
             {/* Choice Input Field */}

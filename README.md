@@ -38,25 +38,33 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Functionalities
 
-- Move the caret onto the multiple-choice question and click the "eye" button to switch between edit mode and read-only mode.
+### 1. Tool Bar
+
+- You can toggle **Bold**, **Italic**, and three different levels of **headings** with the buttons on the tool bar.
+- **Hover** on the buttons to see the tool tips, if you don't know what that button is for.
+- You can also toggle a **MCQ** with the "CheckList" button.
+- You can also toggle **edit mode** and **read-only** mode.
+- Select some text and hit the "Robot" button to see the result of the AI summary.
+
+### 2. Multiple-Choice Question
+
 - In edit mode, you can:
-  - Delete existing choices
-  - Add new choices
-  - Edit the text on the choices
-  - Edit the question
+  - **Delete** existing choices
+  - **Add** new choices
+  - **Edit** the text on the choices
+  - **Edit** the question
+  - **Set** the correct answer for the question
 - In read-only mode, you can:
   - Choose an answer and submit it
-  - Once Submitted answer, you can see the JSON of your answer in browser console
-- Move the caret to some regular text and click the "CheckList" button to toggle between regular text and a mutiple-choice question
-- Scroll down to the bottom and you can see a summarize button
-- You can see summarized text by clicking that button
+  - Once Submitted answer, you can see if your answer is correct
+  - Now you can submit your answers multiple times, until you get it right!
+
+### 3. AI Summarize
+
+- You can see summarized text by clicking the **"Robot"** button
 
 ## Known issues
 
-- Choices in MCQComponents are taking length as keys, which might cause two choices having the same keys.
+- ~~Choices in MCQComponents are taking length as keys, which might cause two choices having the same keys.~~
 - ~~Toggle edit mode and read-only mode button isn't toggling the mode for the entire page.~~
-- The text summarization model used here is a free-tier model so the summarization is pretty bad.
-
-## Logs
-
-- 02/23/2025 - Fixed bugs in toggle edit mode and read-only mode button.
+- ~~The text summarization model used here is a free-tier model so the summarization is pretty bad.~~

@@ -1,8 +1,19 @@
 "use client";
 
 import { Editor } from "@tiptap/core";
-import { Edit, Eye, ListChecks } from "lucide-react";
+import {
+  Edit,
+  Eye,
+  ListChecks,
+  Bold,
+  Italic,
+  Heading1,
+  Heading2,
+  Heading3,
+} from "lucide-react";
 import { useCallback } from "react";
+
+import Button from "./ui/Button";
 
 export type EditorHeaderProps = {
   editor: Editor;
@@ -20,29 +31,58 @@ export const EditorHeader = ({ editor }: EditorHeaderProps) => {
       <div className="flex flex-row gap-x-1.5 items-center">
         <div className="flex items-center gap-x-1.5">
           {/* Toggle Edit/Read-only Button */}
-          <button
+          <Button
+            icon={editor.isEditable ? Eye : Edit}
             onClick={toggleEditable}
-            className="flex items-center justify-center w-10 h-10 rounded-full transition-all text-buttonColor hover:text-yellow-500"
-          >
-            {editor.isEditable ? (
-              <Eye className="w-6 h-6" />
-            ) : (
-              <Edit className="w-6 h-6" />
-            )}
-          </button>
+          />
 
           {/* Toggle MCQ Button */}
           {editor.isEditable && (
-            <button
-              onClick={() => editor?.chain().focus().toggleMCQ().run()}
-              className={`flex items-center justify-center w-10 h-10 rounded-full transition-all ${
-                editor.isActive("mcq")
-                  ? "text-buttonColor hover:text-yellow-500"
-                  : "text-textColor hover:text-d1d0c5"
-              }`}
-            >
-              <ListChecks className="w-6 h-6" />
-            </button>
+            <div className="flex flex-row items-center gap-x-1.5">
+              <Button
+                icon={ListChecks}
+                active={editor.isActive("mcq")}
+                onClick={() => editor?.chain().focus().toggleMCQ().run()}
+              />
+
+              <Button
+                icon={Bold}
+                active={editor.isActive("bold")}
+                onClick={() => editor.chain().focus().toggleBold().run()}
+                disabled={!editor.can().chain().focus().toggleBold().run()}
+              />
+
+              <Button
+                icon={Italic}
+                active={editor.isActive("italic")}
+                onClick={() => editor.chain().focus().toggleItalic().run()}
+                disabled={!editor.can().chain().focus().toggleItalic().run()}
+              />
+
+              <Button
+                icon={Heading1}
+                active={editor.isActive("heading", { level: 1 })}
+                onClick={() =>
+                  editor.chain().focus().toggleHeading({ level: 1 }).run()
+                }
+              />
+
+              <Button
+                icon={Heading2}
+                active={editor.isActive("heading", { level: 2 })}
+                onClick={() =>
+                  editor.chain().focus().toggleHeading({ level: 2 }).run()
+                }
+              />
+
+              <Button
+                icon={Heading3}
+                active={editor.isActive("heading", { level: 3 })}
+                onClick={() =>
+                  editor.chain().focus().toggleHeading({ level: 3 }).run()
+                }
+              />
+            </div>
           )}
         </div>
       </div>

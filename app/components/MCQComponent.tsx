@@ -1,10 +1,13 @@
 "use client";
 
 import { NodeViewContent, NodeViewWrapper, NodeViewProps } from "@tiptap/react";
-import { Trash2, Plus, CheckCircle } from "lucide-react";
+import { Trash2, Plus, CheckCircle, CheckCheck } from "lucide-react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { Toaster } from "react-hot-toast";
+
+import ToolButton from "./ui/Button";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 export interface Choice {
   id: number;
@@ -16,8 +19,6 @@ const MCQComponent = (props: NodeViewProps) => {
   const { MultipleChoices, isEditable } = props.node.attrs;
   const choices = MultipleChoices.choices || [];
   const question = MultipleChoices.question || "";
-
-  const [submitted, setSubmitted] = useState(false);
 
   const addChoice = () => {
     props.updateAttributes({
@@ -49,15 +50,28 @@ const MCQComponent = (props: NodeViewProps) => {
   };
 
   const toggleSelect = (index: number) => {
-    const updatedChoices = choices.map((choice: Choice) =>
-      choice.id === index ? { ...choice, selected: !choice.selected } : choice
-    );
-
     props.updateAttributes({
       MultipleChoices: {
         ...MultipleChoices,
-        choices: updatedChoices,
+        choices: choices.map((choice: Choice) => ({
+          ...choice,
+          selected: choice.id === index,
+        })),
       },
+    });
+  };
+
+  const setCorrectAnswer = (id: number) => {
+    props.updateAttributes({
+      MultipleChoices: {
+        ...MultipleChoices,
+        correctAnswer: id,
+      },
+    });
+
+    toast.success(`Answer set to option ${id + 1}!`, {
+      duration: 3000,
+      position: "top-right",
     });
   };
 
@@ -84,23 +98,31 @@ const MCQComponent = (props: NodeViewProps) => {
   };
 
   const handleSubmit = async () => {
-    const selectedChoices = choices.filter((choice: Choice) => choice.selected);
+    const selectedChoices = choices.find((choice: Choice) => choice.selected);
 
-    if (selectedChoices.length === 0) return;
+    if (selectedChoices.length === 0) {
+      toast.error("Please select an answer before submitting!", {
+        position: "top-right",
+      });
+      return;
+    }
 
-    const submissionData = {
-      question: MultipleChoices.question,
-      selectedChoices: selectedChoices.map((choice: Choice) => choice.value),
-    };
+    // const submissionData = {
+    //   question: MultipleChoices.question,
+    //   selectedChoices: selectedChoices.map((choice: Choice) => choice.value),
+    // };
 
-    console.log("Submitting JSON:", JSON.stringify(submissionData, null, 2)); // Printing formatted JSON here
+    // console.log("Submitting JSON:", JSON.stringify(submissionData, null, 2)); // Printing formatted JSON here
 
-    setSubmitted(true);
-
-    toast.success("Answer submitted successfully!", {
-      duration: 3000,
-      position: "top-right",
-    });
+    if (selectedChoices.id === props.node.attrs.MultipleChoices.correctAnswer) {
+      toast.success("Correct Answer!", {
+        position: "top-right",
+      });
+    } else {
+      toast.error("Wrong Answer", {
+        position: "top-right",
+      });
+    }
   };
 
   return (
@@ -119,70 +141,85 @@ const MCQComponent = (props: NodeViewProps) => {
       ) : (
         <label>{question}</label>
       )}
+      <RadioGroup
+        value={
+          choices.find((choice: Choice) => choice.selected)?.id?.toString() ||
+          ""
+        }
+        onValueChange={(value) => toggleSelect(parseInt(value))}
+      >
+        {choices.map((choice: Choice, index: number) => (
+          <div key={choice.id} className="flex items-center gap-2 mt-2">
+            {/* Choice CheckBox */}
 
-      {choices.map((choice: Choice, index: number) => (
-        <div key={choice.id} className="flex items-center gap-2 mt-2">
-          {/* Choice CheckBox */}
-          {!isEditable && (
-            <input
-              key={"checkboxKey" + choice.id}
-              type="checkbox"
-              checked={choice.selected}
-              onChange={() => toggleSelect(index)}
-              className="w-5 h-5 accent-buttonColor cursor-pointer"
-            />
-          )}
+            {!isEditable && (
+              <RadioGroupItem
+                key={"checkboxKey" + choice.id}
+                value={choice.id.toString()}
+                id={index.toString()}
+              />
+              // <input
+              //   key={"checkboxKey" + choice.id}
+              //   type="checkbox"
+              //   checked={choice.selected}
+              //   onChange={() => toggleSelect(index)}
+              //   className="w-5 h-5 accent-buttonColor cursor-pointer"
+              // />
+            )}
 
-          {/* Choice Input Field */}
-          {isEditable ? (
-            <input
-              key={"inputKey" + choice.id}
-              type="text"
-              value={choice.value}
-              onChange={(e) => handleChoiceChange(index, e.target.value)}
-              className="w-full p-2 border border-textColor rounded-md bg-background text-textColor focus:outline-none focus:ring-2 focus:ring-buttonColor"
-            />
-          ) : (
-            <label>{choice.value}</label>
-          )}
+            {/* Choice Input Field */}
+            {isEditable ? (
+              <input
+                key={"inputKey" + choice.id}
+                type="text"
+                value={choice.value}
+                onChange={(e) => handleChoiceChange(index, e.target.value)}
+                className="w-full p-2 border border-textColor rounded-md bg-background text-textColor focus:outline-none focus:ring-2 focus:ring-buttonColor"
+              />
+            ) : (
+              <label>{choice.value}</label>
+            )}
 
-          {/* Choice Delete Button */}
-          {isEditable && (
-            <button
-              key={"buttonKey" + choice.id}
-              onClick={() => deleteChoice(index)}
-              className="flex items-center justify-center w-10 h-10 rounded-full transition-all text-red-500 hover:text-red-600"
-            >
-              <Trash2 className="w-6 h-6" />
-            </button>
-          )}
-        </div>
-      ))}
+            {/* Choice Delete Button */}
+            {isEditable && (
+              <ToolButton
+                icon={Trash2}
+                tooltip="Delete Choice"
+                key={"buttonKey" + choice.id}
+                onClick={() => deleteChoice(index)}
+              />
+            )}
+
+            {/* Set Correct Answer Button */}
+            {isEditable && (
+              <ToolButton
+                icon={CheckCheck}
+                tooltip="Set Answer"
+                key={"answerButtonKey" + choice.id}
+                onClick={() => setCorrectAnswer(index)}
+              />
+            )}
+          </div>
+        ))}
+      </RadioGroup>
 
       <div>
         {isEditable ? (
-          // Add Choice Button
-          <button
-            className="mt-3 flex items-center justify-center w-10 h-10 rounded-full transition-all text-buttonColor hover:text-yellow-500"
-            onClick={addChoice}
-          >
-            <Plus className="w-6 h-6" />
-          </button>
+          <div>
+            {/* Add Choice Button */}
+            <ToolButton
+              icon={Plus}
+              tooltip="Add Multiple Choice"
+              onClick={addChoice}
+            />
+          </div>
         ) : (
           // Submit Button
-          <button
+          <ToolButton
+            icon={CheckCircle}
+            tooltip="Submit Answer"
             onClick={handleSubmit}
-            className={`mt-3 flex items-center gap-2 px-4 py-2 rounded-md transition-all ${
-              submitted
-                ? "text-gray-300 bg-gray-500 cursor-not-allowed"
-                : choices.some((choice: Choice) => choice.selected)
-                ? "text-background bg-buttonColor hover:bg-yellow-600"
-                : "text-gray-400 bg-gray-600 cursor-not-allowed"
-            }`}
-            disabled={submitted}
-          >
-            <CheckCircle className="w-5 h-5" />
-          </button>
+          />
         )}
       </div>
     </NodeViewWrapper>

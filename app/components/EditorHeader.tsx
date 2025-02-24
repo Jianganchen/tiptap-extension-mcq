@@ -16,7 +16,7 @@ import { useCallback } from "react";
 import { fetchSummary } from "../utils/fetchSummary";
 
 import { toast } from "react-hot-toast";
-import Button from "./ui/Button";
+import ToolButton from "./ui/Button";
 
 export type EditorHeaderProps = {
   editor: Editor;
@@ -63,7 +63,7 @@ export const EditorHeader = ({ editor }: EditorHeaderProps) => {
       <div className="flex flex-row gap-x-1.5 items-center">
         <div className="flex items-center gap-x-1.5">
           {/* Toggle Edit/Read-only Button */}
-          <Button
+          <ToolButton
             icon={editor.isEditable ? Eye : Edit}
             tooltip={editor.isEditable ? "Disable Editing" : "Enable Editing"}
             onClick={toggleEditable}
@@ -71,16 +71,16 @@ export const EditorHeader = ({ editor }: EditorHeaderProps) => {
 
           {editor.isEditable && (
             <div className="flex flex-row items-center gap-x-1.5">
-              {/* Toggle MCQ Button */}
-              <Button
+              {/* Toggle MCQ ToolButton */}
+              <ToolButton
                 icon={ListChecks}
                 tooltip="Toggle MCQ"
                 active={editor.isActive("mcq")}
                 onClick={() => editor?.chain().focus().toggleMCQ().run()}
               />
 
-              {/* Toggle Bold Button */}
-              <Button
+              {/* Toggle Bold ToolButton */}
+              <ToolButton
                 icon={Bold}
                 tooltip="Bold"
                 active={editor.isActive("bold")}
@@ -88,8 +88,8 @@ export const EditorHeader = ({ editor }: EditorHeaderProps) => {
                 disabled={!editor.can().chain().focus().toggleBold().run()}
               />
 
-              {/* Toggle Italic Button */}
-              <Button
+              {/* Toggle Italic ToolButton */}
+              <ToolButton
                 icon={Italic}
                 tooltip="Italic"
                 active={editor.isActive("italic")}
@@ -97,8 +97,8 @@ export const EditorHeader = ({ editor }: EditorHeaderProps) => {
                 disabled={!editor.can().chain().focus().toggleItalic().run()}
               />
 
-              {/* Toggle H1 Button */}
-              <Button
+              {/* Toggle H1 ToolButton */}
+              <ToolButton
                 icon={Heading1}
                 tooltip="Heading 1"
                 active={editor.isActive("heading", { level: 1 })}
@@ -107,8 +107,8 @@ export const EditorHeader = ({ editor }: EditorHeaderProps) => {
                 }
               />
 
-              {/* Toggle H2 Button */}
-              <Button
+              {/* Toggle H2 ToolButton */}
+              <ToolButton
                 icon={Heading2}
                 tooltip="Heading 2"
                 active={editor.isActive("heading", { level: 2 })}
@@ -117,8 +117,8 @@ export const EditorHeader = ({ editor }: EditorHeaderProps) => {
                 }
               />
 
-              {/* Toggle H3 Button */}
-              <Button
+              {/* Toggle H3 ToolButton */}
+              <ToolButton
                 icon={Heading3}
                 tooltip="Heading 3"
                 active={editor.isActive("heading", { level: 3 })}
@@ -127,8 +127,8 @@ export const EditorHeader = ({ editor }: EditorHeaderProps) => {
                 }
               />
 
-              {/* AI summarize Button */}
-              <Button
+              {/* AI summarize ToolButton */}
+              <ToolButton
                 icon={Bot}
                 tooltip="AI summarize"
                 onClick={handleAIButton}

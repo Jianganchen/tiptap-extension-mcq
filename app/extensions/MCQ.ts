@@ -30,6 +30,7 @@ export default Node.create({
             { id: 0, value: "Option 1", selected: false },
             { id: 1, value: "Option 2", selected: false },
           ],
+          correctAnswer: null,
         },
       },
       isEditable: {

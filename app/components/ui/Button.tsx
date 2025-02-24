@@ -32,8 +32,8 @@ const ToolButton = ({
         <TooltipTrigger asChild>
           <Button
             variant="ghost"
-            size="icon"
             className={cn(
+              "bg-gray-300 text-white hover:bg-gray-400",
               active
                 ? "text-buttonColor hover:text-yellow-500"
                 : "text-textColor hover:text-d1d0c5",
@@ -42,7 +42,7 @@ const ToolButton = ({
             )}
             {...props}
           >
-            <Icon className="w-6 h-6" />
+            <Icon />
           </Button>
         </TooltipTrigger>
         <TooltipContent>

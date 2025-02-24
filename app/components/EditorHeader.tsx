@@ -15,6 +15,7 @@ import {
 import { useCallback } from "react";
 import { fetchSummary } from "../utils/fetchSummary";
 
+import { toast } from "react-hot-toast";
 import Button from "./ui/Button";
 
 export type EditorHeaderProps = {
@@ -22,6 +23,35 @@ export type EditorHeaderProps = {
 };
 
 export const EditorHeader = ({ editor }: EditorHeaderProps) => {
+  const handleAIButton = async () => {
+    const userInput = editor.state.selection
+      .content()
+      .content.textBetween(0, editor.state.selection.content().size, " ");
+
+    if (!userInput.trim()) {
+      alert("Please select text to summarize!");
+      return;
+    }
+
+    const loadingToast = toast.loading("Summarizing...", {
+      position: "top-right",
+    });
+
+    try {
+      const summary = await fetchSummary(userInput);
+      toast.dismiss(loadingToast);
+      toast.success("Summary generated successfully!", {
+        position: "top-right",
+      });
+      editor.chain().focus().AISummarize(summary).run();
+    } catch (error) {
+      toast.dismiss(loadingToast);
+      toast.error("Failed to generate summary. Please try again.", {
+        position: "top-right",
+      });
+    }
+  };
+
   const toggleEditable = useCallback(() => {
     editor.setOptions({ editable: !editor.isEditable });
     // force update the editor
@@ -101,11 +131,7 @@ export const EditorHeader = ({ editor }: EditorHeaderProps) => {
               <Button
                 icon={Bot}
                 tooltip="AI summarize"
-                onClick={async () => {
-                  const userInput = editor.getText();
-                  const summary = await fetchSummary(userInput);
-                  editor.chain().focus().AISummarize(summary).run();
-                }}
+                onClick={handleAIButton}
               />
             </div>
           )}

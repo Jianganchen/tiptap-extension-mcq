@@ -10,6 +10,7 @@ import {
   Heading1,
   Heading2,
   Heading3,
+  Bot,
 } from "lucide-react";
 import { useCallback } from "react";
 
@@ -33,55 +34,70 @@ export const EditorHeader = ({ editor }: EditorHeaderProps) => {
           {/* Toggle Edit/Read-only Button */}
           <Button
             icon={editor.isEditable ? Eye : Edit}
+            tooltip={editor.isEditable ? "Disable Editing" : "Enable Editing"}
             onClick={toggleEditable}
           />
 
-          {/* Toggle MCQ Button */}
           {editor.isEditable && (
             <div className="flex flex-row items-center gap-x-1.5">
+              {/* Toggle MCQ Button */}
               <Button
                 icon={ListChecks}
+                tooltip="Toggle MCQ"
                 active={editor.isActive("mcq")}
                 onClick={() => editor?.chain().focus().toggleMCQ().run()}
               />
 
+              {/* Toggle Bold Button */}
               <Button
                 icon={Bold}
+                tooltip="Bold"
                 active={editor.isActive("bold")}
                 onClick={() => editor.chain().focus().toggleBold().run()}
                 disabled={!editor.can().chain().focus().toggleBold().run()}
               />
 
+              {/* Toggle Italic Button */}
               <Button
                 icon={Italic}
+                tooltip="Italic"
                 active={editor.isActive("italic")}
                 onClick={() => editor.chain().focus().toggleItalic().run()}
                 disabled={!editor.can().chain().focus().toggleItalic().run()}
               />
 
+              {/* Toggle H1 Button */}
               <Button
                 icon={Heading1}
+                tooltip="Heading 1"
                 active={editor.isActive("heading", { level: 1 })}
                 onClick={() =>
                   editor.chain().focus().toggleHeading({ level: 1 }).run()
                 }
               />
 
+              {/* Toggle H2 Button */}
               <Button
                 icon={Heading2}
+                tooltip="Heading 2"
                 active={editor.isActive("heading", { level: 2 })}
                 onClick={() =>
                   editor.chain().focus().toggleHeading({ level: 2 }).run()
                 }
               />
 
+              {/* Toggle H3 Button */}
               <Button
                 icon={Heading3}
+                tooltip="Heading 3"
                 active={editor.isActive("heading", { level: 3 })}
                 onClick={() =>
                   editor.chain().focus().toggleHeading({ level: 3 }).run()
                 }
               />
+
+              {/* AI summarize Button */}
+              <Button icon={Bot} tooltip="AI summarize" />
             </div>
           )}
         </div>

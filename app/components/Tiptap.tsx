@@ -1,9 +1,7 @@
 "use client";
 
-import { useEditor, EditorContent, Editor } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-import { useCallback, useEffect, useState } from "react";
-import { Edit, Eye, ListChecks } from "lucide-react";
+import { EditorContent, Editor } from "@tiptap/react";
+import { useEffect } from "react";
 
 export type EditorHeaderProps = {
   editor: Editor;

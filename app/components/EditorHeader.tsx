@@ -11,6 +11,8 @@ import {
   Heading2,
   Heading3,
   Bot,
+  Underline,
+  Strikethrough,
 } from "lucide-react";
 import { useCallback } from "react";
 import { fetchSummary } from "../utils/fetchSummary";
@@ -128,6 +130,22 @@ export const EditorHeader = ({ editor }: EditorHeaderProps) => {
                 onClick={() =>
                   editor.chain().focus().toggleHeading({ level: 3 }).run()
                 }
+              />
+
+              {/* Toggle Underline ToolButton */}
+              <ToolButton
+                icon={Underline}
+                tooltip="Underline"
+                active={states.isUnderline}
+                onClick={() => editor.chain().focus().toggleUnderline().run()}
+              />
+
+              {/* Toggle Strikethrough ToolButton */}
+              <ToolButton
+                icon={Strikethrough}
+                tooltip="Strikethrough"
+                active={states.isStrike}
+                onClick={() => editor.chain().focus().toggleStrike().run()}
               />
 
               {/* AI summarize ToolButton */}

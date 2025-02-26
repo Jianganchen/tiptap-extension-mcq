@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import MCQ from "@/app/extensions/MCQ";
 import TextSummary from "@/app/extensions/TextSummary";
 import TextStyle from "@tiptap/extension-text-style";
+import Underline from "@tiptap/extension-underline";
 
 declare global {
   interface Window {
@@ -33,6 +34,7 @@ export const useBlockEditor = ({
       StarterKit.configure({ heading: { levels: [1, 2, 3] } }),
       MCQ,
       TextSummary,
+      Underline,
     ],
     editorProps: {
       attributes: {

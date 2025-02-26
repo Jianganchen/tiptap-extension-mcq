@@ -26,22 +26,19 @@ const ToolButton = ({
   className,
   ...props
 }: ButtonProps) => {
+  const buttonClassName = cn(
+    "bg-gray-300 text-white hover:bg-gray-400",
+    active
+      ? "bg-blue-600 text-white hover:bg-blue-500 shadow-md"
+      : "text-gray-800 hover:text-gray-900",
+    props.disabled ? "opacity-50 cursor-not-allowed" : "",
+    className
+  );
   return (
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button
-            variant="ghost"
-            className={cn(
-              "bg-gray-300 text-white hover:bg-gray-400",
-              active
-                ? "text-buttonColor hover:text-yellow-500"
-                : "text-textColor hover:text-d1d0c5",
-              props.disabled ? "opacity-50 cursor-not-allowed" : "",
-              className
-            )}
-            {...props}
-          >
+          <Button variant="ghost" className={buttonClassName} {...props}>
             <Icon />
           </Button>
         </TooltipTrigger>

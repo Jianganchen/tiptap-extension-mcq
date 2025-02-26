@@ -17,12 +17,15 @@ import { fetchSummary } from "../utils/fetchSummary";
 
 import { toast } from "react-hot-toast";
 import ToolButton from "./ui/Button";
+import { useTextStates } from "./hooks/useTextStates";
 
 export type EditorHeaderProps = {
   editor: Editor;
 };
 
 export const EditorHeader = ({ editor }: EditorHeaderProps) => {
+  const states = useTextStates(editor);
+
   const handleAIButton = async () => {
     const userInput = editor.state.selection
       .content()
@@ -75,7 +78,7 @@ export const EditorHeader = ({ editor }: EditorHeaderProps) => {
               <ToolButton
                 icon={ListChecks}
                 tooltip="Toggle MCQ"
-                active={editor.isActive("mcq")}
+                active={states.isMCQ}
                 onClick={() => editor?.chain().focus().toggleMCQ().run()}
               />
 
@@ -83,7 +86,7 @@ export const EditorHeader = ({ editor }: EditorHeaderProps) => {
               <ToolButton
                 icon={Bold}
                 tooltip="Bold"
-                active={editor.isActive("bold")}
+                active={states.isBold}
                 onClick={() => editor.chain().focus().toggleBold().run()}
                 disabled={!editor.can().chain().focus().toggleBold().run()}
               />
@@ -92,7 +95,7 @@ export const EditorHeader = ({ editor }: EditorHeaderProps) => {
               <ToolButton
                 icon={Italic}
                 tooltip="Italic"
-                active={editor.isActive("italic")}
+                active={states.isItalic}
                 onClick={() => editor.chain().focus().toggleItalic().run()}
                 disabled={!editor.can().chain().focus().toggleItalic().run()}
               />
@@ -101,7 +104,7 @@ export const EditorHeader = ({ editor }: EditorHeaderProps) => {
               <ToolButton
                 icon={Heading1}
                 tooltip="Heading 1"
-                active={editor.isActive("heading", { level: 1 })}
+                active={states.isHeading1}
                 onClick={() =>
                   editor.chain().focus().toggleHeading({ level: 1 }).run()
                 }
@@ -111,7 +114,7 @@ export const EditorHeader = ({ editor }: EditorHeaderProps) => {
               <ToolButton
                 icon={Heading2}
                 tooltip="Heading 2"
-                active={editor.isActive("heading", { level: 2 })}
+                active={states.isHeading2}
                 onClick={() =>
                   editor.chain().focus().toggleHeading({ level: 2 }).run()
                 }
@@ -121,7 +124,7 @@ export const EditorHeader = ({ editor }: EditorHeaderProps) => {
               <ToolButton
                 icon={Heading3}
                 tooltip="Heading 3"
-                active={editor.isActive("heading", { level: 3 })}
+                active={states.isHeading3}
                 onClick={() =>
                   editor.chain().focus().toggleHeading({ level: 3 }).run()
                 }

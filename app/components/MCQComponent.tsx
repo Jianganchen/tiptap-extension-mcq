@@ -167,7 +167,7 @@ const MCQComponent = (props: NodeViewProps) => {
                 type="text"
                 value={choice.value}
                 onChange={(e) => handleChoiceChange(index, e.target.value)}
-                className="w-full p-2 border border-textColor rounded-md bg-background text-textColor focus:outline-none focus:ring-2 focus:ring-buttonColor"
+                className="w-full p-2 border border-textColor rounded-md bg-background text-textColor focus:outline-none focus:ring-2 focus:ring-blue-600"
               />
             ) : (
               <label>{choice.value}</label>
@@ -196,7 +196,7 @@ const MCQComponent = (props: NodeViewProps) => {
         ))}
       </RadioGroup>
 
-      <div>
+      <div className="flex justify-normal gap-2 mt-4">
         {isEditable ? (
           <div>
             {/* Add Choice Button */}

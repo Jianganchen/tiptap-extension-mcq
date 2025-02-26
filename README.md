@@ -41,9 +41,11 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ### 1. Tool Bar
 
 - You can toggle **Bold**, **Italic**, and three different levels of **headings** with the buttons on the tool bar.
+- You can also toggle **Underline** and **Strikethrough** with the corresponding buttons.
 - **Hover** on the buttons to see the tool tips, if you don't know what that button is for.
 - You can also toggle a **MCQ** with the "CheckList" button.
 - You can also toggle **edit mode** and **read-only** mode.
+- Select some text and you can see their active effects. Try select the heading, you can see the h1 button is active!
 - Select some text and hit the "Robot" button to see the result of the AI summary.
 
 ### 2. Multiple-Choice Question

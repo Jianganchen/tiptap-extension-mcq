@@ -13,8 +13,6 @@ import {
   Bot,
   Underline,
   Strikethrough,
-  Sun,
-  Moon,
 } from "lucide-react";
 import { useCallback, useState } from "react";
 import { fetchSummary } from "../utils/fetchSummary";

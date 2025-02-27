@@ -1,6 +1,6 @@
 import { HfInference } from "@huggingface/inference";
 
-const hf = new HfInference("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");
+const hf = new HfInference(`${process.env.API_KEY}` || " ");
 
 export async function fetchSummary(inputText: string) {
   const response = await hf.summarization({

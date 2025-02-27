@@ -13,20 +13,26 @@ import {
   Bot,
   Underline,
   Strikethrough,
+  Sun,
+  Moon,
 } from "lucide-react";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { fetchSummary } from "../utils/fetchSummary";
 
 import { toast } from "react-hot-toast";
 import ToolButton from "./ui/Button";
+import { Switch } from "@/components/ui/switch";
 import { useTextStates } from "./hooks/useTextStates";
+import { useTheme } from "next-themes";
 
 export type EditorHeaderProps = {
   editor: Editor;
 };
 
 export const EditorHeader = ({ editor }: EditorHeaderProps) => {
+  const { setTheme } = useTheme();
   const states = useTextStates(editor);
+  const [isDarkMode, setIsdarkMode] = useState<boolean>(false);
 
   const handleAIButton = async () => {
     const userInput = editor.state.selection
@@ -65,7 +71,7 @@ export const EditorHeader = ({ editor }: EditorHeaderProps) => {
 
   return (
     <div className="flex flex-row items-center justify-between flex-none py-2 pl-6 pr-3 text-black bg-white border-b border-neutral-200 dark:bg-black dark:text-white dark:border-neutral-800">
-      <div className="flex flex-row gap-x-1.5 items-center">
+      <div className="flex flex-row gap-x-1.5 items-center mb-4">
         <div className="flex items-center gap-x-1.5">
           {/* Toggle Edit/Read-only Button */}
           <ToolButton
@@ -156,6 +162,19 @@ export const EditorHeader = ({ editor }: EditorHeaderProps) => {
               />
             </div>
           )}
+        </div>
+      </div>
+      <div className="flex items-center ml-auto mb-4">
+        <Switch
+          id="toggleDarkMode"
+          checked={isDarkMode}
+          onCheckedChange={() => {
+            isDarkMode ? setTheme("light") : setTheme("dark");
+            setIsdarkMode(!isDarkMode);
+          }}
+        />
+        <div className="ml-2">
+          <label htmlFor="toggleDarkMode">Toggle Dark Mode</label>
         </div>
       </div>
     </div>

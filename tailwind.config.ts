@@ -11,7 +11,7 @@ export default {
     extend: {
       colors: {
         background: "hsl(var(--background))",
-        textColor: "#18181b",
+        // textColor: "#18181b",
         buttonColor: "#e2b714",
         secondary: {
           DEFAULT: "hsl(var(--secondary))",

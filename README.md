@@ -47,6 +47,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - You can also toggle **edit mode** and **read-only** mode.
 - Select some text and you can see their active effects. Try select the heading, you can see the h1 button is active!
 - Select some text and hit the "Robot" button to see the result of the AI summary.
+- You can toggle between **Dark mode** and **Light mode** by hitting that switch button to the right of the toolbar!
 
 ### 2. Multiple-Choice Question
 
